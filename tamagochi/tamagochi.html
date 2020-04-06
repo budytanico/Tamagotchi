@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        let objTamagotchi = (function(inicio) {
+            let nivel = 20;
+            let vida = 100;
+            let enemigo = 100;
+            return {
+
+                incrementarnivel: function(num) {
+                    if (nivel >= 70) {
+                        nivel = 100;
+                    } else {
+                        nivel = nivel + num;
+                    }
+
+                },
+                atacar: function() {
+                    if (enemigo <= 0) {
+                        enemigo = 0;
+                        alert("Has Ganado");
+                    } else if (vida <= 0) {
+                        enemigo - 0;
+                    } else if (nivel > 30 && nivel <= 50) {
+                        enemigo = enemigo - 5;
+                    } else if (vida <= 0) {
+                        enemigo - 0;
+                    } else if (nivel > 50 && nivel < 70) {
+                        enemigo = enemigo - 15;
+                    } else if (vida <= 0) {
+                        enemigo - 0;
+                    } else if (nivel >= 70) {
+                        enemigo = enemigo - 25;
+                    } else if (vida <= 0) {
+                        enemigo - 0;
+                    } else {
+                        enemigo = enemigo - 2;
+                    }
+
+
+                },
+                daño: function() {
+                    if (vida <= 0) {
+                        vida = 0;
+                        alert("Has sido derrotado");
+
+                    } else if (enemigo <= 0) {
+                        enemigo = enemigo - 0;
+                    } else if (nivel > 30 && nivel <= 50) {
+                        vida = vida - 25;
+                    } else if (enemigo <= 0) {
+                        enemigo = enemigo - 0;
+
+                    } else if (nivel > 50 && nivel < 70) {
+                        vida = vida - 10;
+                    } else if (enemigo <= 0) {
+                        enemigo = enemigo - 0;
+                    } else if (nivel >= 70) {
+                        vida = vida - 5;
+                    } else if (enemigo <= 0) {
+                        enemigo = enemigo - 0;
+                    } else {
+                        vida = vida - 35;
+                    }
+
+
+
+                },
+
+                salirpantalla: function() {
+                    let oponente = " Vida: " + enemigo;
+                    document.getElementById("vidaEnemigo").innerHTML = oponente;
+                    this.barraEnemigo()
+
+                    let salud = " Vida: " + vida;
+                    document.getElementById("Vida").innerHTML = salud;
+                    this.Vida()
+
+                    let cadena = " Nivel: " + nivel;
+                    document.getElementById("salida").innerHTML = cadena;
+                    this.dibujoTama()
+
+                },
+
+
+                dibujoTama: function() {
+                    nivel <= 30 && this.dibujarTama("<img class='squirtle' src='squirtle.png'>");
+                    nivel > 30 && nivel <= 50 && this.dibujarTama("<img class='wartortle' src='Wartortle.png'>");
+                    nivel > 50 && nivel < 70 && this.dibujarTama("<img class='blastoise' src='Blastoise.png'>");
+                    nivel >= 70 && this.dibujarTama("<img class='mega-blastoise' src='mega-blastoise.png'>");
+                    // Tama Alegre , Tama cansado ...
+                },
+
+                dibujarTama: function(cadena) {
+                    document.getElementById("pokemon").innerHTML = cadena;
+                    this.moveBarras()
+                },
+                Vida: function(salud) {
+                    document.getElementById("pokemon").innerHTML = salud;
+                    this.moveBarras2()
+                },
+                barraEnemigo: function(oponente) {
+                    document.getElementById("vidaEnemigo").innerHTML = " Vida: " + enemigo;
+                    this.moveBarras3()
+                },
+
+
+                moveBarras: function() {
+                    let elem = document.getElementById("nivel");
+                    elem.style.width = nivel + '%';
+                },
+
+                moveBarras2: function() {
+                    let elem = document.getElementById("miVida");
+                    elem.style.width = vida + '%';
+                },
+                moveBarras3: function() {
+                    let elem = document.getElementById("enemigo");
+                    elem.style.width = enemigo + '%';
+                },
+
+
+            }; // fin return
+        })(); // fin obj Tamagotchi
+        programa = (menu) => { // programa(menu, aumento)
+
+            menu == 1 && objTamagotchi.incrementarnivel(5);
+
+            menu == 2 && objTamagotchi.atacar();
+
+            menu == 4 && objTamagotchi.daño();
+            objTamagotchi.salirpantalla();
+        }
+    </script>
+</head>
+
+<body>
+    <div id="salida"></div>
+    <div id="Vida"></div>
+    <input class="boton" type="button" value="Dar caramelos" onclick="programa(1)">
+    <input class="boton" type="button" value="Atacar" onclick="programa(2)">
+
+    <!-- <input type="button" value="Reset" onclick="programa(3)" > -->
+    <!-- <input type="button" value="dormir" onclick="programa(4)" > -->
+    <div class="barras">
+        <div id="barranivel">
+            <div id="nivel"></div>
+        </div>
+        <div id="barramiVida">
+            <div id="miVida"></div>
+        </div>
+    </div>
+    <div class="barraEnemigo">
+        <div class="fondo">
+            <div id="enemigo"></div>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <!--- <img class="ataqueAgua" src="agua.png" alt="">-->
+        <div id="pokemon"></div>
+    </div>
+    <div id="vidaEnemigo"></div>
+    <input class="ataqueCharizard boton" type="button" value="atacar" onclick="programa(4)">
+    <div id="pokemon2">
+        <img class="charizard" src="Charizard.png" alt="">
+        <!-- <img id="ataqueFuego" src="llamarada.png" alt="">-->
+    </div>
+    <script>
+        let procesoID;
+        cambio = () => programa(0);
+        detenercambio = () => clearInterval(procesoID);
+        procesoID = setInterval(cambio, 0);
+    </script>
+    <div id="contenedor">
+        <div id="barra"></div>
+    </div>
+</body>
+
+</html>
